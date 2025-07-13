@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>CRUD Form</title>
+
+  <!-- jQuery & jQuery UI -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+  <!-- jQuery Timepicker Addon -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css">
+
+  <style>
+    body {
+      background: #f7f7f7;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 50px;
+    }
+    
+    h1 {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+    }
+    
+    
+
+    form {
+      background: #fff;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 100%;
+    }
+
+    form h2 {
+      margin-top: 20px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      color: #555;
+      font-weight: 600;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="time"],
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    select:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+      margin-right: 8px;
+    }
+
+    button[type="submit"] {
+      background: #007bff;
+      color: #fff;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-top: 20px;
+    }
+
+    button[type="submit"]:hover {
+      background: #0056b3;
+    }
+
+    /* Optional: spacing for checkboxes/radios */
+    input[type="checkbox"] + label,
+    input[type="radio"] + label {
+      display: inline-block;
+      margin-right: 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<h1>Movie Booking Form </h1>
+  <form th:action="@{/crud/save}" method="post" th:object="${crudEntity}">
+
+    <label for="name">Name:</label>
+    <input type="text" id="name" th:field="*{name}" placeholder="Enter your name" />
+
+    <label for="movieName">Movie Name:</label>
+    <input type="text" id="movieName" th:field="*{movieName}" placeholder="Enter movie name" />
+
+    <label for="theater">Select Theater:</label>
+    <select id="theater" th:field="*{theater}">
+      <option value="">--Select--</option>
+      <option value="unix">Unix</option>
+      <option value="plassio">Plassio</option>
+      <option value="altroz">Altroz</option>
+      <option value="santa">Santa</option>
+    </select>
+
+    <label for="movieDate">Movie Date:</label>
+    <input type="text" id="movieDate" th:field="*{movieDate}" placeholder="Select a date" />
+
+    <label for="movieTime">Movie Time:</label>
+    <input type="text" id="movieTime" th:field="*{movieTime}" placeholder="Select a time" />
+
+    <h2>Additional Options:</h2>
+    
+    <label for="option1">Coffee <input type="checkbox" id="option1" th:field="*{additionalOptions}" value="coffee" /></label>
+
+    
+    <label for="option2">Popcorn <input type="checkbox" id="option2" th:field="*{additionalOptions}" value="popcorn" /></label>
+
+    
+    <label for="option3">3D Glasses <input type="checkbox" id="option3" th:field="*{additionalOptions}" value="3D Glasses" /></label>
+
+    <h2>Payment Options:</h2>
+    
+    <label for="radio1">Credit Card <input type="radio" id="radio1" th:field="*{paymentType}" value="credit_card" /></label>
+
+    
+    <label for="radio2">Debit Card <input type="radio" id="radio2" th:field="*{paymentType}" value="debit_card" /></label>
+
+    
+    <label for="radio3">UPI <input type="radio" id="radio3" th:field="*{paymentType}" value="Upi" /></label>
+    <br>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    $(document).ready(function() {
+      $("#movieDate").datepicker({
+        dateFormat: "yy-mm-dd"
+      });
+      $("#movieTime").timepicker({
+        timeFormat: "HH:mm",
+        interval: 30,
+        dropdown: true,
+        scrollbar: true
+      });
+    });
+  </script>
+</body>
+</html>
