@@ -1,58 +1,143 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>All Records</title>
-<style>
-table {
-	border-collapse: collapse;
-	width: 100%;
-	margin: 20px auto;
-}
+    <title>All Records</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f7f7f7;
+        }
 
-th, td {
-	border: 1px solid #999;
-	padding: 8px 12px;
-	text-align: left;
-}
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
 
-th {
-	background: #007bff;
-	color: #fff;
-}
-</style>
+        .table-container {
+            overflow-x: auto;
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 800px; /* Ensures horizontal scroll on small screens */
+        }
+
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #007bff;
+            color: #fff;
+        }
+
+        button {
+            margin: 3px 2px;
+            padding: 6px 12px;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .edit-button {
+            background-color: #17a2b8;
+        }
+
+        .delete-button {
+            background-color: #dc3545;
+        }
+
+        .print-button {
+            background-color: #6c757d;
+        }
+
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 20px;
+            }
+
+            button {
+                font-size: 12px;
+                padding: 5px 10px;
+            }
+
+            table {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            th, td {
+                padding: 6px 8px;
+            }
+
+            button {
+                width: 100%;
+                margin: 5px 0;
+            }
+        }
+    </style>
 </head>
 <body>
-	<h2>All CRUD Records</h2>
-	<table>
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>User name</th>
-				<th>Movie name</th>
-				<th>Movie Date</th>
-				<th>Movie Time</th>
-				<th>Theater name</th>
-				<th>Additional Options</th>
-				<th>Payment Type</th>
-				<th>Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="crudEntity : ${data}">
-				<td th:text="${crudEntity.id}"></td>
-				<td th:text="${crudEntity.name}"></td>
-				<td th:text="${crudEntity.movieName}"></td>
-				<td th:text="${crudEntity.movieDate}"></td>
-				<td th:text="${crudEntity.movieTime}"></td>
-				<td th:text="${crudEntity.theater}"></td>
-				<td th:text="${crudEntity.additionalOptions}"></td>
-				<td th:text="${crudEntity.paymentType}"></td>
-				<td><a th:href="@{alldetails/edit/{id}(id=${crudEntity.id})}"><button>Edit</button></a>
-				<a th:href="@{alldetails/delete/{id}(id=${crudEntity.id})}">
-				<button>Delete</button>
-				</a></td>
-			</tr>
-		</tbody>
-	</table>
+    <h2>All CRUD Records</h2>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>User name</th>
+                    <th>Movie name</th>
+                    <th>Movie Date</th>
+                    <th>Movie Time</th>
+                    <th>Theater name</th>
+                    <th>Additional Options</th>
+                    <th>Payment Type</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="crudEntity : ${data}">
+                    <td th:text="${crudEntity.id}"></td>
+                    <td th:text="${crudEntity.name}"></td>
+                    <td th:text="${crudEntity.movieName}"></td>
+                    <td th:text="${crudEntity.movieDate}"></td>
+                    <td th:text="${crudEntity.movieTime}"></td>
+                    <td th:text="${crudEntity.theater}"></td>
+                    <td th:text="${crudEntity.additionalOptions}"></td>
+                    <td th:text="${crudEntity.paymentType}"></td>
+                    <td>
+                        <a th:href="@{/alldetails/edit/{id}(id=${crudEntity.id})}">
+                            <button class="edit-button">Edit</button>
+                        </a>
+                        <a th:href="@{/alldetails/delete/{id}(id=${crudEntity.id})}">
+                            <button class="delete-button">Delete</button>
+                        </a>
+                        <a th:href="@{/booking/{id}/ticket(id=${crudEntity.id})}" target="_blank">
+                            <button class="print-button">Print Ticket</button>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
+
+

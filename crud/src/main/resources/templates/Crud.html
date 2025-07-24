@@ -13,30 +13,38 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css">
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       background: #f7f7f7;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
       display: flex;
       justify-content: center;
-      align-items: flex-start;
+      align-items: center;
       min-height: 100vh;
-      padding: 50px;
     }
-    
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+      padding: 20px;
+    }
+
     h1 {
-     display: flex;
-     justify-content: center;
-     align-items: center;
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
     }
-    
-    
 
     form {
       background: #fff;
-      padding: 40px;
+      padding: 30px 20px;
       border-radius: 10px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      max-width: 500px;
       width: 100%;
     }
 
@@ -56,6 +64,7 @@
     input[type="text"],
     input[type="date"],
     input[type="time"],
+    input[type="file"],
     select {
       width: 100%;
       padding: 10px 12px;
@@ -65,7 +74,7 @@
       transition: border-color 0.3s ease;
     }
 
-    input[type="text"]:focus,
+    input:focus,
     select:focus {
       border-color: #007bff;
       outline: none;
@@ -86,72 +95,77 @@
       cursor: pointer;
       transition: background 0.3s ease;
       margin-top: 20px;
+      width: 100%;
     }
 
     button[type="submit"]:hover {
       background: #0056b3;
     }
 
-    /* Optional: spacing for checkboxes/radios */
-    input[type="checkbox"] + label,
-    input[type="radio"] + label {
-      display: inline-block;
-      margin-right: 20px;
-      cursor: pointer;
+    /* Responsive tweaks */
+    @media (max-width: 480px) {
+      form {
+        padding: 20px 15px;
+      }
+
+      h1 {
+        font-size: 22px;
+      }
+
+      button[type="submit"] {
+        font-size: 14px;
+      }
     }
   </style>
 </head>
 <body>
-<h1>Movie Booking Form </h1>
-  <form th:action="@{/crud/save}" method="post" th:object="${crudEntity}">
+  <div class="container">
+    <h1>Movie Booking Form</h1>
 
-    <label for="name">Name:</label>
-    <input type="text" id="name" th:field="*{name}" placeholder="Enter your name" />
+    <form th:action="@{/crud/save}" method="post" th:object="${crudEntity}">
 
-    <label for="movieName">Movie Name:</label>
-    <input type="text" id="movieName" th:field="*{movieName}" placeholder="Enter movie name" />
+      <label for="name">Name:</label>
+      <input type="text" id="name" th:field="*{name}" placeholder="Enter your name" required />
 
-    <label for="theater">Select Theater:</label>
-    <select id="theater" th:field="*{theater}">
-      <option value="">--Select--</option>
-      <option value="unix">Unix</option>
-      <option value="plassio">Plassio</option>
-      <option value="altroz">Altroz</option>
-      <option value="santa">Santa</option>
-    </select>
+      <label for="movieName">Movie Name:</label>
+      <input type="text" id="movieName" th:field="*{movieName}" placeholder="Enter movie name" required />
 
-    <label for="movieDate">Movie Date:</label>
-    <input type="text" id="movieDate" th:field="*{movieDate}" placeholder="Select a date" />
+      <label for="theater">Select Theater:</label>
+      <select id="theater" th:field="*{theater}" required>
+        <option value="">--Select--</option>
+        <option value="unix">Unix</option>
+        <option value="plassio">Plassio</option>
+        <option value="altroz">Altroz</option>
+        <option value="santa">Santa</option>
+      </select>
 
-    <label for="movieTime">Movie Time:</label>
-    <input type="text" id="movieTime" th:field="*{movieTime}" placeholder="Select a time" />
+      <label for="resume">Upload your photo:</label>
+      <input type="file" id="resume" th:field="*{resume}" required>
 
-    <h2>Additional Options:</h2>
-    
-    <label for="option1">Coffee <input type="checkbox" id="option1" th:field="*{additionalOptions}" value="coffee" /></label>
+      <label for="movieDate">Movie Date:</label>
+      <input type="text" id="movieDate" th:field="*{movieDate}" placeholder="Select a date" required />
 
-    
-    <label for="option2">Popcorn <input type="checkbox" id="option2" th:field="*{additionalOptions}" value="popcorn" /></label>
+      <label for="movieTime">Movie Time:</label>
+      <input type="text" id="movieTime" th:field="*{movieTime}" placeholder="Select a time" />
 
-    
-    <label for="option3">3D Glasses <input type="checkbox" id="option3" th:field="*{additionalOptions}" value="3D Glasses" /></label>
+      <h2>Additional Options:</h2>
 
-    <h2>Payment Options:</h2>
-    
-    <label for="radio1">Credit Card <input type="radio" id="radio1" th:field="*{paymentType}" value="credit_card" /></label>
+      <label><input type="checkbox" th:field="*{additionalOptions}" value="coffee" /> Coffee</label>
+      <label><input type="checkbox" th:field="*{additionalOptions}" value="popcorn" /> Popcorn</label>
+      <label><input type="checkbox" th:field="*{additionalOptions}" value="3D Glasses" /> 3D Glasses</label>
 
-    
-    <label for="radio2">Debit Card <input type="radio" id="radio2" th:field="*{paymentType}" value="debit_card" /></label>
+      <h2>Payment Options:</h2>
 
-    
-    <label for="radio3">UPI <input type="radio" id="radio3" th:field="*{paymentType}" value="Upi" /></label>
-    <br>
+      <label><input type="radio" th:field="*{paymentType}" value="credit_card" /> Credit Card</label>
+      <label><input type="radio" th:field="*{paymentType}" value="debit_card" /> Debit Card</label>
+      <label><input type="radio" th:field="*{paymentType}" value="Upi" /> UPI</label>
 
-    <button type="submit">Submit</button>
-  </form>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
 
   <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
       $("#movieDate").datepicker({
         dateFormat: "yy-mm-dd"
       });

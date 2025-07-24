@@ -12,7 +12,7 @@ import com.crud.repository.CrudRepository;
 public class CrudService {
 	
 	@Autowired
-	CrudRepository crudRepository;
+	private CrudRepository crudRepository;
 	 
 	public CrudEntity saveCrud(CrudEntity crudEntity) {
 	   return crudRepository.save(crudEntity);
@@ -24,7 +24,7 @@ public class CrudService {
 		return crudRepository.findAll();
 	}
 
-
+  
 	public void deleteById(Long id) {
 		crudRepository.deleteById(id);
 	}

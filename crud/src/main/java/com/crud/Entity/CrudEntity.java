@@ -1,4 +1,5 @@
 package com.crud.Entity;
+import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
@@ -31,8 +32,21 @@ public class CrudEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String>additionalOptions;
     
+    private File resume;
     
-    private String paymentType;
+    
+    
+    public File getResume() {
+		return resume;
+	}
+
+	public void setResume(File resume) {
+		this.resume = resume;
+	}
+
+
+
+	private String paymentType;
     
     
  
@@ -113,7 +127,7 @@ public class CrudEntity {
 
  
 
-	public CrudEntity(Long id, String name, String movieName, String theater, LocalTime movieTime, LocalDate movieDate, String  paymentType) {
+	public CrudEntity(Long id, String name, String movieName, String theater, LocalTime movieTime, LocalDate movieDate, String  paymentType, File resume) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -122,5 +136,6 @@ public class CrudEntity {
 		this.movieTime = movieTime;
 		this.movieDate = movieDate;
 		this.paymentType = paymentType;
+		this.resume = resume;
 	}
 }
