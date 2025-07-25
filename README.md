@@ -7,9 +7,11 @@
 
 ### 2. Edit Booking Details – Modify your ticket information in case of incorrect inputs.
 
-### 3. View Booking History – Access a complete list of all your past bookings.
+### 3. You can also delete your tickets.
 
-### 4. Download Ticket as PDF – Instantly download your booked ticket in a well-formatted PDF file.
+### 4. View Booking History – Access a complete list of all your past bookings.
+
+### 5. Download Ticket as PDF – Instantly download your booked ticket in a well-formatted PDF file.
 
 ## 📸 Live Demo Snapshots
 ## 🎟️ Movie Booking Form
