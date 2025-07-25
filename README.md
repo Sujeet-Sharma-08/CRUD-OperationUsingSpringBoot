@@ -11,7 +11,7 @@
 
 <img width="748" height="718" alt="booking form" src="https://github.com/user-attachments/assets/63bbacee-92fe-47ab-84d6-0bbb258f62c6" />
 
-### Movie Booking Form
+### Movie Edit Form
 
 <img width="746" height="721" alt="edit form" src="https://github.com/user-attachments/assets/fc81ef02-cd18-48d7-97a8-2c678cd3299d" />
 
